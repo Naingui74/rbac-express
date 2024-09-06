@@ -25,13 +25,10 @@ router.get('/users/:id', authMiddleware.authenticate, authMiddleware.authorize('
 
 // Route pour mettre à jour le profil de l'utilisateur connecté
 router.put('/profile', authMiddleware.authenticate, userController.updateProfile);
-
 // Route pour supprimer le compte de l'utilisateur connecté
 router.delete('/profile', authMiddleware.authenticate, userController.deleteAccount);
-
 // Route pour supprimer un autre compte utilisateur (ADMIN uniquement)
 router.delete('/users/:id', authMiddleware.authenticate, authMiddleware.authorize('ADMIN'), userController.deleteUser);
-
 // Route pour lister tous les utilisateurs (ADMIN uniquement)
 router.get('/users', authMiddleware.authenticate, authMiddleware.authorize('ADMIN'), userController.listUsers);
 

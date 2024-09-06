@@ -1,3 +1,10 @@
+/*
+** BOOUNCE PROJECT, 2024
+** rbac-express
+** File description:
+** db.js
+*/
+
 const mysql = require('mysql2');
 
 // Créer une connexion à la base de données

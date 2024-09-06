@@ -16,7 +16,6 @@ router.post('/register', userController.register);
 
 // Route pour la connexion des utilisateurs
 router.post('/login', userController.login);
-
 // Route pour afficher le profil de l'utilisateur connecté
 router.get('/profile', authMiddleware.authenticate, userController.getProfile);
 // Route pour afficher le profil d'un autre utilisateur (ADMIN uniquement)

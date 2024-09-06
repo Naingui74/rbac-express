@@ -1,3 +1,10 @@
+/*
+** BOOUNCE PROJECT, 2024
+** rbac-express
+** File description:
+** authMiddleware.js
+*/
+
 const jwt = require('jsonwebtoken');
 
 // Middleware d'authentification

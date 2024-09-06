@@ -13,7 +13,6 @@ const authMiddleware = require('../middlewares/authMiddleware');
 
 // Route pour l'inscription des utilisateurs
 router.post('/register', userController.register);
-
 // Route pour la connexion des utilisateurs
 router.post('/login', userController.login);
 // Route pour afficher le profil de l'utilisateur connecté

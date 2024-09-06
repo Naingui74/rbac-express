@@ -1,3 +1,10 @@
+/*
+** BOOUNCE PROJECT, 2024
+** rbac-express
+** File description:
+** userModel.js
+*/
+
 // models/userModel.js
 
 const db = require('../config/db'); // Importer la connexion à la base de données

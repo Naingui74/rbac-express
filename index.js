@@ -1,3 +1,10 @@
+/*
+** BOOUNCE PROJECT, 2024
+** rbac-express
+** File description:
+** index.js
+*/
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');

@@ -1,3 +1,10 @@
+/*
+** BOOUNCE PROJECT, 2024
+** rbac-express
+** File description:
+** userRoutes.js
+*/
+
 // routes/userRoutes.js
 const express = require('express');
 const router = express.Router();

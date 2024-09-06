@@ -1,3 +1,10 @@
+/*
+** BOOUNCE PROJECT, 2024
+** rbac-express
+** File description:
+** userController.js
+*/
+
 const db = require('../config/db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');

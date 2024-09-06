@@ -22,7 +22,6 @@ router.get('/profile', authMiddleware.authenticate, userController.getProfile);
 
 // Route pour afficher le profil d'un autre utilisateur (ADMIN uniquement)
 router.get('/users/:id', authMiddleware.authenticate, authMiddleware.authorize('ADMIN'), userController.getUserById);
-
 // Route pour mettre à jour le profil de l'utilisateur connecté
 router.put('/profile', authMiddleware.authenticate, userController.updateProfile);
 // Route pour supprimer le compte de l'utilisateur connecté

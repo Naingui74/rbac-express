@@ -11,6 +11,10 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 const authMiddleware = require('../middlewares/authMiddleware');
 
+router.get('/', (req, res) => {
+    res.status(200).json({ message: 'API is working' });
+});
+
 // Route pour l'inscription des utilisateurs
 router.post('/register', userController.register);
 // Route pour la connexion des utilisateurs

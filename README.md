@@ -1,4 +1,9 @@
 # RBAC Express App
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express.js-000000?style=flat&logo=express&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-00758F?style=flat&logo=mysql&logoColor=white)
+![JWT](https://img.shields.io/badge/JSON%20Web%20Token-000000?style=flat&logo=json-web-tokens&logoColor=white)
+![Bcrypt.js](https://img.shields.io/badge/bcrypt.js-FD6D2F?style=flat&logo=bcrypt&logoColor=white)
 
 Ce projet est une application Node.js utilisant Express.js pour implémenter un système de contrôle d'accès basé sur les rôles (RBAC). Il utilise JWT pour l'authentification et l'autorisation, MySQL pour la base de données, et bcrypt pour le hachage des mots de passe.
 

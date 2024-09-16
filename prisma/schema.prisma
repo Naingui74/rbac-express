@@ -17,3 +17,9 @@ enum Role {
   BLOGGER
 }
 
+model Company {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  address   String
+  users     User[]
+}

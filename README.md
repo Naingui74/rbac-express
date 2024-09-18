@@ -6,7 +6,7 @@
 ![Bcrypt.js](https://img.shields.io/badge/bcrypt.js-FD6D2F?style=flat&logo=bcrypt&logoColor=white)
 ![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=flat&logo=prisma&logoColor=white)
 
-Ce projet est une application Node.js utilisant Express.js pour implémenter un système de contrôle d'accès basé sur les rôles (RBAC). Il utilise JWT pour l'authentification et l'autorisation, MySQL pour la base de données, et bcrypt pour le hachage des mots de passe.
+Ce projet est une application Node.js utilisant Express.js pour implémenter un système de contrôle d'accès basé sur les rôles (RBAC). Il utilise JWT pour l'authentification et l'autorisation,Prisma, MySQL pour la base de données, et bcrypt pour le hachage des mots de passe.
 
 ## Table des matières
 

@@ -48,10 +48,9 @@ exports.register = (req, res) => {
 
 // Connexion des utilisateurs
 exports.login = (req, res) => {
+
     const { email, password } = req.body;
-
     console.log('Tentative de connexion avec email:', email);
-
     const query = 'SELECT * FROM users WHERE email = ?';
     db.query(query, [email], (err, results) => {
         if (err) {
@@ -62,7 +61,6 @@ exports.login = (req, res) => {
             console.log('Aucun utilisateur trouvé avec cet email');
             return res.status(401).send('Email ou mot de passe incorrect');
         }
-
         const user = results[0];
         bcrypt.compare(password, user.password, (err, isMatch) => {
             if (err) {
@@ -73,31 +71,39 @@ exports.login = (req, res) => {
                 console.log('Mot de passe incorrect');
                 return res.status(401).send('Email ou mot de passe incorrect');
             }
-
-            const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            const { id, role } = user;
+            const token = jwt.sign({ id, role }, process.env.JWT_SECRET, { expiresIn: '1h' });
             res.json({ token });
         });
     });
 };
 
-// Afficher le profil de l'utilisateur connecté
 exports.getProfile = (req, res) => {
-    const userId = req.user.id;
 
-    const query = 'SELECT * FROM users WHERE id = ?';
+    console.log('Utilisateur connecté:', req.user);
+    if (!req.user) {
+        return res.status(401).send('Utilisateur non authentifié');
+    }
+    const userId = req.user.id;
+    const query = 'SELECT id, first_name, last_name, email, phone_number, role FROM users WHERE id = ?';
     db.query(query, [userId], (err, results) => {
         if (err) {
+            console.error('Erreur lors de la requête SQL:', err);
             return res.status(500).send('Erreur lors de la récupération du profil');
         }
         if (results.length === 0) {
+            console.log('Aucun utilisateur trouvé avec cet ID');
             return res.status(404).send('Profil non trouvé');
         }
-        res.json(results[0]);
+
+        const user = results[0];
+        res.json(user);
     });
 };
 
 // Afficher le profil d'un utilisateur spécifique
 exports.getUserById = (req, res) => {
+
     const userId = req.params.id;
 
     const query = 'SELECT * FROM users WHERE id = ?';
@@ -114,13 +120,40 @@ exports.getUserById = (req, res) => {
 
 // Mettre à jour le profil de l'utilisateur connecté
 exports.updateProfile = (req, res) => {
-    const userId = req.user.id;
-    const { firstName, lastName, phoneNumber } = req.body;
 
-    const query = 'UPDATE users SET first_name = ?, last_name = ?, phone_number = ? WHERE id = ?';
-    db.query(query, [firstName, lastName, phoneNumber, userId], (err, results) => {
+    console.log('Utilisateur connecté:', req.user);
+    
+    if (!req.user) {
+        console.log('Utilisateur non authentifié');
+        return res.status(401).send('Utilisateur non authentifié');
+    }
+    
+    const userId = req.user.id;
+    const { first_name, last_name, phone_number } = req.body;
+
+    console.log('Champs reçus pour mise à jour:', {first_name, last_name, phone_number});
+
+    if (!first_name && !last_name && !phone_number) {
+        console.log('Aucun champ à mettre à jour');
+        return res.status(400).send('Au moins un champ doit être fourni pour la mise à jour.');
+    }
+
+    const query = `
+        UPDATE users
+        SET first_name = COALESCE(?, first_name),
+            last_name = COALESCE(?, last_name),
+            phone_number = COALESCE(?, phone_number)
+        WHERE id = ?
+    `;
+
+    db.query(query, [first_name, last_name, phone_number, userId], (err, results) => {
         if (err) {
+            console.error('Erreur lors de la mise à jour du profil:', err);
             return res.status(500).send('Erreur lors de la mise à jour du profil');
+        }
+        if (results.affectedRows === 0) {
+            console.log('Aucun utilisateur trouvé avec cet ID');
+            return res.status(404).send('Utilisateur non trouvé');
         }
         res.send('Profil mis à jour avec succès');
     });
@@ -128,6 +161,7 @@ exports.updateProfile = (req, res) => {
 
 // Supprimer le compte de l'utilisateur connecté
 exports.deleteAccount = (req, res) => {
+
     const userId = req.user.id;
 
     const query = 'DELETE FROM users WHERE id = ?';
@@ -141,6 +175,7 @@ exports.deleteAccount = (req, res) => {
 
 // Supprimer un compte utilisateur spécifique
 exports.deleteUser = (req, res) => {
+
     const userId = req.params.id;
 
     const query = 'DELETE FROM users WHERE id = ?';
@@ -154,6 +189,7 @@ exports.deleteUser = (req, res) => {
 
 // Lister tous les utilisateurs
 exports.listUsers = (req, res) => {
+
     const query = 'SELECT * FROM users';
     db.query(query, (err, results) => {
         if (err) {

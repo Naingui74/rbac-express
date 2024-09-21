@@ -8,6 +8,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
+const swaggerSetup = require('./swagger');
 const userRoutes = require('./routes/userRoutes');
 const { createTable } = require('./models/userModel'); // Importer la fonction createTable
 
@@ -42,6 +43,8 @@ app.use((req, res, next) => {
     next();
 });
 
+swaggerSetup(app);
+
 // Utiliser les routes définies dans userRoutes.js
 app.use('/api', userRoutes);
 
@@ -49,6 +52,7 @@ app.use('/api', userRoutes);
 app.listen(port, () => {
     console.log(`Serveur démarré sur http://localhost:${port}`);
 });
+
 
 //By Naingui74 RBAC-EXPRESS-APP
 //This Project take me 2 days to complete it

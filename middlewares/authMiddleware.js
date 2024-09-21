@@ -17,12 +17,13 @@ exports.authenticate = (req, res, next) => {
 
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
+            console.error('Erreur lors de la vérification du token:', err); // Ajoute un log pour voir l'erreur
             return res.status(401).send('Token invalide');
         }
-
         req.user = decoded;
         next();
     });
+    
 };
 
 // Middleware d'autorisation
